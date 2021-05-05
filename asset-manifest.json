@@ -1,22 +1,25 @@
 {
   "files": {
-    "main.css": "/book-shop/static/css/main.e70d91a7.chunk.css",
-    "main.js": "/book-shop/static/js/main.fbd61faf.chunk.js",
-    "main.js.map": "/book-shop/static/js/main.fbd61faf.chunk.js.map",
-    "runtime-main.js": "/book-shop/static/js/runtime-main.8ef63701.js",
-    "runtime-main.js.map": "/book-shop/static/js/runtime-main.8ef63701.js.map",
-    "static/js/2.3f50937b.chunk.js": "/book-shop/static/js/2.3f50937b.chunk.js",
-    "static/js/2.3f50937b.chunk.js.map": "/book-shop/static/js/2.3f50937b.chunk.js.map",
-    "static/js/3.59ee2df0.chunk.js": "/book-shop/static/js/3.59ee2df0.chunk.js",
-    "static/js/3.59ee2df0.chunk.js.map": "/book-shop/static/js/3.59ee2df0.chunk.js.map",
+    "main.css": "/book-shop/static/css/main.e9fe5a97.chunk.css",
+    "main.js": "/book-shop/static/js/main.9c560517.chunk.js",
+    "main.js.map": "/book-shop/static/js/main.9c560517.chunk.js.map",
+    "runtime-main.js": "/book-shop/static/js/runtime-main.4d627ab8.js",
+    "runtime-main.js.map": "/book-shop/static/js/runtime-main.4d627ab8.js.map",
+    "static/js/2.b8b81914.chunk.js": "/book-shop/static/js/2.b8b81914.chunk.js",
+    "static/js/2.b8b81914.chunk.js.map": "/book-shop/static/js/2.b8b81914.chunk.js.map",
+    "static/js/3.986141ee.chunk.js": "/book-shop/static/js/3.986141ee.chunk.js",
+    "static/js/3.986141ee.chunk.js.map": "/book-shop/static/js/3.986141ee.chunk.js.map",
     "index.html": "/book-shop/index.html",
-    "static/css/main.e70d91a7.chunk.css.map": "/book-shop/static/css/main.e70d91a7.chunk.css.map",
-    "static/js/2.3f50937b.chunk.js.LICENSE.txt": "/book-shop/static/js/2.3f50937b.chunk.js.LICENSE.txt"
+    "static/css/main.e9fe5a97.chunk.css.map": "/book-shop/static/css/main.e9fe5a97.chunk.css.map",
+    "static/js/2.b8b81914.chunk.js.LICENSE.txt": "/book-shop/static/js/2.b8b81914.chunk.js.LICENSE.txt",
+    "static/media/bars-solid.e8db7520.svg": "/book-shop/static/media/bars-solid.e8db7520.svg",
+    "static/media/shopping-cart-solid.d146d6c3.svg": "/book-shop/static/media/shopping-cart-solid.d146d6c3.svg",
+    "static/media/times-solid.ea7c95d7.svg": "/book-shop/static/media/times-solid.ea7c95d7.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8ef63701.js",
-    "static/js/2.3f50937b.chunk.js",
-    "static/css/main.e70d91a7.chunk.css",
-    "static/js/main.fbd61faf.chunk.js"
+    "static/js/runtime-main.4d627ab8.js",
+    "static/js/2.b8b81914.chunk.js",
+    "static/css/main.e9fe5a97.chunk.css",
+    "static/js/main.9c560517.chunk.js"
   ]
 }
