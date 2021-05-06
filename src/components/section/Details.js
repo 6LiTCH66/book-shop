@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
-import {DataContext} from "../Context";
 import {Link} from "react-router-dom";
 import '../css/Details.css'
+import fire from "../../firebase";
 
 export class Details extends Component {
-    static contextType = DataContext;
-
     constructor(props) {
         super(props);
         this.state = {
-            product: []
+            product: [],
+            detailId: this.props.match.params.id,
         }
     }
     getItemDetails = () => {
-        if (this.props.match.params.id){
-            const res = this.context.products;
-            const findItem = res.filter(item => {
-                return item.id === this.props.match.params.id
+        if (this.state.detailId){
+            fire.database().ref("products/" + this.state.detailId)
+                .once('value', (snapshot)=>{
+                    let child = []
+                    child.push(snapshot.val())
+                    this.setState({ product: child })
             })
-            this.setState({ product:findItem });
         }
     }
     componentDidMount() {

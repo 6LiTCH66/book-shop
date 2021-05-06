@@ -36,15 +36,15 @@ class Header extends Component {
                         </li>
 
                         <li>
-                            <Link to="/contact">Contact</Link>
-                        </li>
-
-                        <li>
-                            <Link to="/about">About</Link>
+                            <Link to="/order">My orders</Link>
                         </li>
 
                         <li>
                             <Link to="/login">Login / Register</Link>
+                        </li>
+
+                        <li>
+                            <Link to="/profile">Profile</Link>
                         </li>
 
                         <li className="close" onClick={this.menuToggle}>
