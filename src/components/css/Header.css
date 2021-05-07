@@ -35,13 +35,12 @@ nav .nav-cart{
 }
 nav .nav-cart span {
     position: absolute;
-    top: -13px;
-    right: -8px;
+    top: -16px;
+    right: -16px;
     background: crimson;
     font-size: 10px;
     color: white;
     border-radius: 50%;
-    z-index: -1;
     height: 20px;
     width: 20px;
     display: flex;
