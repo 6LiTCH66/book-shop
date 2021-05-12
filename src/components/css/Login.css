@@ -1,0 +1,46 @@
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+.login-button{
+    border: none;
+    outline: none;
+    letter-spacing: 1px;
+    background: #333;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 15px 0;
+    padding: 15px 0;
+    font-size: 16px;
+}
+
+.login-input{
+    width: 100%;
+    margin: 8px auto;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    outline: none;
+    font-size: 24px;
+    letter-spacing: 1px;
+
+}
+.loginContainer{
+    margin: auto;
+    width: 100%;
+    max-width: 520px;
+    min-height: 600px;
+    padding: 60px;
+}
+.labels{
+    font-size: 24px;
+}
+.buttons{
+    margin-top: 30px;
+}
