@@ -44,3 +44,16 @@
 .buttons{
     margin-top: 30px;
 }
+.HaveAcc{
+    text-align: right;
+    font-size: 20px;
+}
+.signin{
+    font-weight: 500;
+    color: #107896;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+}
+.signin:hover{
+    color: red;
+}

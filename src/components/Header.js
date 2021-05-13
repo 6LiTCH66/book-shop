@@ -28,23 +28,23 @@ class Header extends Component {
                 <nav>
                     <ul className={toggle ? "toggle": ""}>
                         <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/" replace >Home</Link>
                         </li>
 
                         <li>
-                            <Link to="/product">Product</Link>
+                            <Link to="/product" replace >Product</Link>
                         </li>
 
                         <li>
-                            <Link to="/order">My orders</Link>
+                            <Link to="/order" replace >My orders</Link>
                         </li>
 
                         <li>
-                            <Link to="/login">Login / Register</Link>
+                            <Link to="/login" replace >Login / Register</Link>
                         </li>
 
                         <li>
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/profile" replace >Profile</Link>
                         </li>
 
                         <li className="close" onClick={this.menuToggle}>
