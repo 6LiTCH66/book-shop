@@ -1,0 +1,26 @@
+#title {
+    text-align: center;
+}
+
+#order {
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#order td, #order th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#order tr:nth-child(even){background-color: #f2f2f2;}
+
+#order tr:hover {background-color: #ddd;}
+
+#order th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+}

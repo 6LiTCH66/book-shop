@@ -25,6 +25,7 @@ nav ul li a {
     text-transform: uppercase;
     color: #555;
     padding: 0 15px;
+    font-weight: bold;
 }
 nav ul li a:hover{
     color: lightseagreen;
@@ -52,6 +53,20 @@ header .menu,
 header .close{
     cursor: pointer;
     display: none;
+}
+.logoutBtn{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #555;
+    padding: 0 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.logoutBtn:hover{
+    color: lightseagreen;
 }
 @media (max-width: 650px) {
     header ul {

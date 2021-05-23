@@ -1,61 +1,85 @@
-import React, {Component} from 'react';
+import React, {useRef, useState} from 'react';
+import {useAuth} from "../AuthContext";
+import {useHistory} from "react-router-dom";
+import {Alert, AlertTitle} from "@material-ui/lab";
+import { db } from '../../firebase';
 
-class Registration extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-            fName: "",
-            sName: "",
-            regEmail: "",
-            regPassword: "",
-            regConfPassword: "",
+export default function Registration (props) {
+    const fName = useRef();
+    const sName = useRef();
+    const regEmail = useRef();
+    const regPassword = useRef();
+    const regConfPassword = useRef();
+    const {registration} = useAuth();
+    const [error, setError] = useState('')
+    const history = useHistory();
+
+    const [loading, setLoading] = useState(false);
+    async function handleSubmit(e){
+        e.preventDefault();
+        if(regPassword.current.value !== regConfPassword.current.value){
+            return setError("Password do not match!!!")
         }
+        if (fName.current.value === ""){
+            return setError("Enter your name!!!")
+        }
+        if (sName.current.value === ""){
+            return setError("Enter your last name!!!")
+        }
+
+        try{
+            setError("")
+            setLoading(true)
+            await registration(regEmail.current.value, regPassword.current.value)
+                .then(async function (data){
+                    await db.collection("users").doc(data.user.uid).set({
+                        name: fName.current.value,
+                        secondname: sName.current.value,
+                        email: regEmail.current.value,
+                        userPhoto: ''
+                    })
+                })
+            history.push('/')
+        }
+        catch(err) {
+            setError(err.message);
+            setLoading(false)
+
+        }
+
     }
+    return (
+        <form className="login-wrapper" onSubmit={handleSubmit}>
+            <h1>Registration</h1>
+            <div className="errorMsg">
+                {error && <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {error}
+                </Alert>}
+            </div>
+            <div className="loginContainer">
+                <label className="labels">First Name</label>
+                <input type="text" className="login-input" ref={fName}/>
 
-    handleChange(event, field){
-        this.setState({[field]: event.target.value});
-    }
+                <label className="labels">Second Name</label>
+                <input type="text" className="login-input" ref={sName}/>
 
-    handleSubmit(){
-        // TODO
-    }
+                <label className="labels">Email</label>
+                <input type="text" className="login-input" ref={regEmail}/>
 
-    render() {
-        return (
-            <div className="login-wrapper">
-                <h1>Registration</h1>
-                <div className="loginContainer">
-                    <label className="labels">First Name</label>
-                    <input type="text" className="login-input" value={this.state.fName}
-                           onChange={(event) => this.handleChange(event, "fName")} />
+                <label className="labels">Password</label>
+                <input type="password" className="login-input" ref={regPassword}/>
 
-                    <label className="labels">Second Name</label>
-                    <input type="text" className="login-input" value={this.state.sName}
-                           onChange={(event) => this.handleChange(event, "sName")}/>
+                <label className="labels">Confirm your password</label>
+                <input type="password" className="login-input" ref={regConfPassword}/>
 
-                    <label className="labels">Email</label>
-                    <input type="text" className="login-input" value={this.state.regEmail}
-                           onChange={(event) => this.handleChange(event, "regEmail")}/>
-
-                    <label className="labels">Password</label>
-                    <input type="password" className="login-input" value={this.state.regPassword}
-                           onChange={(event) => this.handleChange(event, "regPassword")}/>
-
-                    <label className="labels">Confirm your password</label>
-                    <input type="password" className="login-input" value={this.state.regConfPassword}
-                           onChange={(event) => this.handleChange(event, "regConfPassword")}/>
-
-                    <div className="buttons">
-                        <button className="login-button" onClick={this.handleSubmit.bind(this)}>Registration</button>
-                        <p className="HaveAcc">Have an account ?
-                            <span onClick={()=>{this.props.setState({show:true})}} className="signin">Sign in</span>
-                        </p>
-                    </div>
+                <div className="buttons">
+                    <button className="login-button"  disabled={loading} type="submit">Registration</button>
+                    <p className="HaveAcc">Have an account ?
+                        <span onClick={()=>{props.setState({show:true})}} className="signin">Sign in</span>
+                    </p>
                 </div>
             </div>
-        );
-    }
+        </form>
+    );
 }
-
-export default Registration;

@@ -57,3 +57,6 @@
 .signin:hover{
     color: red;
 }
+.errorMsg{
+    margin-top: 40px;
+}
