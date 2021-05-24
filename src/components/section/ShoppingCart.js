@@ -6,7 +6,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 export default function ShoppingCart() {
-    const {userCart, increaseItem, decreaseItem, deleteItem, totalAmount, quantity, getUserCart} = useProducts();
+    const {
+        userCart,
+        increaseItem,
+        decreaseItem,
+        deleteItem,
+        totalAmount,
+        getUserCart
+    } = useProducts();
 
     useEffect(()=>{
         getUserCart()

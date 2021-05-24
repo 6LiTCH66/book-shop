@@ -2,9 +2,17 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import '../css/Products.css';
 import {useProducts} from "../Context";
+import {useAuth} from "../AuthContext";
+import {useHistory} from "react-router-dom";
 
 export default function Products() {
     const {products, addToCart} = useProducts();
+    const {currentUser} = useAuth();
+    const history = useHistory();
+
+    function PushMain(){
+        history.push("/")
+    }
 
     return (
         <div id="product">
@@ -21,7 +29,7 @@ export default function Products() {
                             <span>${product.price}</span>
                             <p>{product.description}</p>
                         </div>
-                        <button onClick={() => addToCart(product)}>Add to card</button>
+                        <button onClick={currentUser ? ()=> addToCart(product): PushMain}>Add to cart</button>
                     </div>
                 ))
             }

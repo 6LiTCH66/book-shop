@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import fire from '../firebase';
 import {useAuth} from "./AuthContext";
+import {useHistory} from "react-router-dom";
 
 const DataContext = React.createContext();
 
@@ -14,6 +15,7 @@ export function DataProvider ({children}) {
     const [userCart, setUserCart] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const {currentUser} = useAuth();
+    const history = useHistory();
 
 
     function getUserCart(){
@@ -37,7 +39,6 @@ export function DataProvider ({children}) {
         }
         else {
             setUserCart([])
-            console.log("no data user")
         }
     }
 
@@ -70,9 +71,7 @@ export function DataProvider ({children}) {
                 fire.database().ref("cart/" + currentUser.uid + "/products").push(product)
             }
         }
-        else{
-            alert("You need to login!!!")
-        }
+
     }
 
     function getQuantity(){
@@ -138,7 +137,7 @@ export function DataProvider ({children}) {
         deleteItem,
         totalAmount,
         setUserCart,
-        getUserCart
+        getUserCart,
     }
 
     return (

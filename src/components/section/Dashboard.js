@@ -1,13 +1,17 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
+import {useProducts} from "../Context";
 
-class Dashboard extends Component {
-    render() {
-        return (
-            <div>
-                Dashboard
-            </div>
-        );
-    }
+export default function Dashboard () {
+    const {getUserCart, userCart} = useProducts()
+
+    useEffect(()=>{
+        getUserCart();
+    },[])
+
+    return (
+        <div>
+            DashBoard
+        </div>
+    );
 }
 
-export default Dashboard;
