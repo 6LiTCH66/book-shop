@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import fire from '../firebase';
 import {useAuth} from "./AuthContext";
-import {useHistory} from "react-router-dom";
 
 const DataContext = React.createContext();
 
@@ -15,8 +14,29 @@ export function DataProvider ({children}) {
     const [userCart, setUserCart] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const {currentUser} = useAuth();
-    const history = useHistory();
 
+    const [getUsers, setUsers] = useState([]);
+    const [UserRating, setUserRating] = useState(0);
+    var rating = 0;
+
+    if (getUsers === null){
+        rating = 0;
+    }
+    else {
+        rating = UserRating / Object.keys(getUsers).length
+    }
+
+    function getUsersRating(detailId){
+        fire.database().ref("products/" + detailId + "/users-rate/").on("value", (snapshot) =>{
+            var totalRating = 0;
+            snapshot.forEach((child)=> {
+                totalRating += child.val().rating
+            })
+            setUserRating(totalRating)
+            setUsers(snapshot.val())
+
+        })
+    }
 
     function getUserCart(){
         if(currentUser){
@@ -117,9 +137,8 @@ export function DataProvider ({children}) {
     }
 
     useEffect(() => {
-        //getUserCart();
         getData();
-
+        //getUserCart()
     }, [])
 
 
@@ -138,6 +157,8 @@ export function DataProvider ({children}) {
         totalAmount,
         setUserCart,
         getUserCart,
+        rating,
+        getUsersRating,
     }
 
     return (

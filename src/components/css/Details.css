@@ -42,6 +42,17 @@
     width: 132px;
     cursor: pointer;
 }
+
 .box .row span{
     color: crimson;
+}
+
+.box .flex{
+    display: flex;
+    float: right;
+    padding: 10px;
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }

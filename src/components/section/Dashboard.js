@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useProducts} from "../Context";
-
+import "../css/Dashboard.css"
 export default function Dashboard () {
-    const {getUserCart, userCart} = useProducts()
+    const {getUserCart, products} = useProducts()
 
     useEffect(()=>{
         getUserCart();
@@ -10,7 +10,7 @@ export default function Dashboard () {
 
     return (
         <div>
-            DashBoard
+            Dashboard
         </div>
     );
 }
