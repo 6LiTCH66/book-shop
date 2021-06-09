@@ -20,14 +20,17 @@ section .cart{
     align-items: center;
     justify-content: space-between;
 }
-.total a{
+.total button{
     text-decoration: none;
     background: #333;
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
     padding: 10px 25px;
+    border: none;
+    cursor: pointer;
 }
+
 .total h3{
     margin-right: 50px;
     color: crimson;

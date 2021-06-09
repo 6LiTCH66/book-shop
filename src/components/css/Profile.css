@@ -1,51 +1,121 @@
+.container{
+    padding: 50px 10px;
+    display: flex;
+    height: 100%;
+}
+
 .log-button{
     border: none;
     outline: none;
     letter-spacing: 1px;
     background: #333;
     color: white;
-    width: 55%;
     margin: 15px 0;
     padding: 15px;
     font-size: 16px;
-}
-
-.prof-button{
-    width: 45%;
-}
-
-.log-button:hover {
-    background:#ccc;
-    color: #000000;
-}
-
-.label-1{
+    max-width: 200px;
     width: 100%;
-    margin: 8px auto;
-    display: block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    padding: 10px 15px;
-    outline: none;
-    font-size: 24px;
-    letter-spacing: 1px;
-
+    cursor: pointer;
 }
 
-.label-1-text{
-    font-weight: bold;
+#add-image{
+    border: none;
+    outline: none;
+    letter-spacing: 1px;
+    background: #333;
+    color: white;
+    margin: 15px 0;
+    padding: 15px;
+    font-size: 16px;
+    max-width: 200px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.myProfile{
+    padding: 10px 15px;
+    font-size: 30px;
+}
+
+.main-prof img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+.prof-button{
+    max-width: 250px;
+    width: 100%;
+    align-items: center;
+
 }
 
 .inf{
-    position: absolute;
-    left: 55%;
+    margin-left: 70px;
+    width: 100%;
 }
 
+.label-1{
+    font-size: 24px;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    outline: none;
+    letter-spacing: 1px;
+}
+.label-1 p{
+    padding: 10px 15px;
+}
+.my-orders{
+    font-size: 24px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    outline: none;
+    letter-spacing: 1px;
+    padding: 10px 15px;
+}
+.prof-button{
+    display: flex;
+    flex-direction: column;
+}
 .main-prof{
-    margin-bottom: auto;
-    display: block;
+    margin: 0 auto;
 }
 
-.main-inf{
-    padding: 50px 10px;
+@media screen and (max-width:560px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .inf{
+        margin-left: 0;
+    }
+
+    section{
+        box-shadow: 0 0 5px #ccc;
+        height: 100%;
+    }
+
+    .label-1{
+        font-size: 24px;
+        padding: 10px 0;
+    }
+    .label-1 p {
+        padding: 10px 0;
+    }
+
+    .my-orders{
+        border-bottom: none;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+
+    .myProfile{
+        padding: 0;
+    }
+
 }

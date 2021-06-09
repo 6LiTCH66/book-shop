@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useAuth} from "../AuthContext";
 import {useHistory} from "react-router-dom";
 import {Alert, AlertTitle} from "@material-ui/lab";
-import { db } from '../../firebase';
+import { db, fireStorage } from '../../firebase';
 
 export default function Registration (props) {
     const fName = useRef();
@@ -12,9 +12,15 @@ export default function Registration (props) {
     const regConfPassword = useRef();
     const {registration} = useAuth();
     const [error, setError] = useState('')
+    const [url, setUrl] = useState()
+    const [loading, setLoading] = useState(false);
+
     const history = useHistory();
 
-    const [loading, setLoading] = useState(false);
+    fireStorage.ref("bookImage").child("nonUser.jpg").getDownloadURL().then(url =>{
+        setUrl(url)
+    })
+
     async function handleSubmit(e){
         e.preventDefault();
         if(regPassword.current.value !== regConfPassword.current.value){
@@ -36,7 +42,7 @@ export default function Registration (props) {
                         name: fName.current.value,
                         secondname: sName.current.value,
                         email: regEmail.current.value,
-                        userPhoto: ''
+                        userPhoto: url
                     })
                 })
             history.push('/')

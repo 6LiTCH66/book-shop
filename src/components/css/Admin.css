@@ -1,0 +1,58 @@
+.adminWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+.adminInputs{
+    width: 100%;
+    margin: 8px auto;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 5px;
+    outline: none;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.adminImgInput{
+    width: 100%;
+    margin: 8px auto;
+    display: block;
+    padding: 5px;
+    outline: none;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.adminTextarea{
+    width: 100%;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    outline: none;
+    font-size: 17px;
+    resize: none;
+    height: 200px;
+}
+.adminContainer{
+    margin: auto;
+    width: 100%;
+    max-width: 520px;
+    min-height: 600px;
+    padding: 60px;
+}
+.adminBtn{
+    border: none;
+    outline: none;
+    letter-spacing: 1px;
+    background: #333;
+    color: white;
+    width: 30%;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 15px 0;
+    padding: 10px;
+    float: right;
+}

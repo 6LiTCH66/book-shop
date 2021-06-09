@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import fire from '../firebase';
 import {useAuth} from "./AuthContext";
+import {db} from '../firebase'
 
 const DataContext = React.createContext();
 
@@ -12,11 +13,23 @@ export function DataProvider ({children}) {
     const [products, setProducts] = useState([]);
     const [quantity, setQuantity] = useState(0)
     const [userCart, setUserCart] = useState([]);
+    const [userOrder, setUserOrder] = useState([])
+
     const [totalAmount, setTotalAmount] = useState(0);
     const {currentUser} = useAuth();
 
     const [getUsers, setUsers] = useState([]);
     const [UserRating, setUserRating] = useState(0);
+
+    const [userData, setUserData] = useState([])
+    const [userTotalAmount, setUserTotalAmount] = useState(0)
+
+
+    const orderTime = new Date().toLocaleString().slice(0, 10);
+    const min = 1000000
+    const max = 7000000
+    const rand = Math.floor(min + Math.random() * (max - min));
+
     var rating = 0;
 
     if (getUsers === null){
@@ -34,9 +47,27 @@ export function DataProvider ({children}) {
             })
             setUserRating(totalRating)
             setUsers(snapshot.val())
-
         })
     }
+
+
+
+    async function getUserData(){
+        const subscriber = await db.collection("users").doc(currentUser.uid).onSnapshot(doc => {
+            if (!doc.data()){
+                setUserData([])
+            }else {
+                setUserData({
+                    name: doc.data().name,
+                    secondname: doc.data().secondname,
+                    userPhoto: doc.data().userPhoto
+                })
+            }
+        })
+        return subscriber
+    }
+
+
 
     function getUserCart(){
         if(currentUser){
@@ -91,7 +122,39 @@ export function DataProvider ({children}) {
                 fire.database().ref("cart/" + currentUser.uid + "/products").push(product)
             }
         }
+    }
 
+    function confirmOrder(total){
+        if (currentUser){
+            fire.database().ref("order/" + currentUser.uid + "/products").push({
+                totalAmount: total,
+                time: orderTime,
+                orderNumber: rand,
+                status: "completed"
+            })
+            fire.database().ref("cart/" + currentUser.uid + "/products").remove()
+        }
+    }
+
+    function getUserOrder(){
+        if (currentUser){
+            fire.database().ref("order/" + currentUser.uid + "/products").on("value", (snapshot) => {
+                const orderArr = []
+                var totalAmount = 0
+                snapshot.forEach((child) => {
+                    totalAmount += child.val().totalAmount
+                    orderArr.push({
+                        id: child.key,
+                        totalAmount: child.val().totalAmount,
+                        time: child.val().time,
+                        orderNumber: child.val().orderNumber,
+                        status: child.val().status
+                    })
+                })
+                setUserTotalAmount(totalAmount)
+                setUserOrder(orderArr)
+            })
+        }
     }
 
     function getQuantity(){
@@ -102,7 +165,6 @@ export function DataProvider ({children}) {
                 snapshot.forEach((child) => {
                     countQuantity += child.val().quantity;
                     totalAmount += child.val().price * child.val().quantity
-
                 })
                 setQuantity(countQuantity)
                 setTotalAmount(totalAmount)
@@ -159,6 +221,12 @@ export function DataProvider ({children}) {
         getUserCart,
         rating,
         getUsersRating,
+        confirmOrder,
+        getUserOrder,
+        userOrder,
+        getUserData,
+        userData,
+        userTotalAmount
     }
 
     return (

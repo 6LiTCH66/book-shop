@@ -29,7 +29,7 @@ export default function Header() {
     }
 
     return (
-        <header>
+        <header className="mainHeader">
             <div className="menu" onClick={menuToggle}>
                 <img src={Menu} alt="" width="20"/>
             </div>

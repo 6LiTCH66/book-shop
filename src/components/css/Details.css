@@ -56,3 +56,6 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.flex strong{
+    margin-right: 10px;
+}

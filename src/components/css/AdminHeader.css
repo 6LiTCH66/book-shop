@@ -1,0 +1,10 @@
+.adminHeader{
+    background-color: black;
+    height: 25px;
+}
+.adminPanel a{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    float: right;
+}

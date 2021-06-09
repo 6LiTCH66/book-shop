@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { auth } from "../firebase";
-
 const AuthContext = React.createContext();
 
 export function useAuth(){
@@ -34,7 +33,6 @@ export function AuthProvider({ children }){
 
 
     },[])
-
 
     const value = {
         currentUser,

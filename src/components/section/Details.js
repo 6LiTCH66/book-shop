@@ -18,19 +18,26 @@ export default function Details(props) {
     }
     const getItemDetails = () => {
         if (detailId){
+            let child = []
             fire.database().ref("products/" + detailId)
                 .once('value', (snapshot)=>{
-                    let child = []
-                    child.push(snapshot.val())
-                    setProduct(child)
+                    child.push({
+                        id: snapshot.key,
+                        title: snapshot.val().title,
+                        image: snapshot.val().image,
+                        description: snapshot.val().description,
+                        content: snapshot.val().content,
+                        price: snapshot.val().price,
+                        quantity: snapshot.val().quantity
+                    })
             })
+            setProduct(child)
         }
     }
 
     useEffect(() => {
         getItemDetails()
         getUsersRating(detailId);
-
     }, [])
 
     const [hoverRating, setHoverRating] = useState(0);
@@ -43,9 +50,8 @@ export default function Details(props) {
     }
 
     const onSaveRating = (index) => {
-        console.log(rating)
         if (currentUser){
-            fire.database().ref("products/" + detailId + "/users-rate/" + currentUser.uid + "/").update({
+            fire.database().ref("products/" + detailId + "/users-rate/" + currentUser.uid).update({
                 rating: index,
             })
         }
@@ -67,8 +73,9 @@ export default function Details(props) {
                             </div>
                             <p>{item.description}</p>
                             <p>{item.content}</p>
-                            <button className="cart" onClick={currentUser ? ()=> addToCart(product): PushMain}>Add to Cart</button>
+                            <button className="cart" onClick={currentUser ? ()=> addToCart(product[0]): PushMain}>Add to Cart</button>
                             <div className="flex">
+                                <strong>{rating}</strong>
                                 {[1, 2, 3, 4, 5].map((index, key) => {
                                     return(
                                         <RatingIcon
@@ -81,6 +88,7 @@ export default function Details(props) {
                                             onSaveRating={onSaveRating}/>
                                     )
                                 })}
+
                             </div>
                         </div>
                     </div>

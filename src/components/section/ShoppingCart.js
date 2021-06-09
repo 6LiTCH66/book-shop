@@ -12,13 +12,15 @@ export default function ShoppingCart() {
         decreaseItem,
         deleteItem,
         totalAmount,
-        getUserCart
+        getUserCart,
+        confirmOrder,
     } = useProducts();
 
     useEffect(()=>{
+
         getUserCart()
     },[])
-
+    const TotalAmount = Math.fround(totalAmount).toFixed(2)
     if (userCart.length > 0) {
         return (
             <>
@@ -45,9 +47,9 @@ export default function ShoppingCart() {
                 ))
                 }
                 <div className="total">
-                    <Link to="/">Payment</Link>
+                    <button onClick={() => confirmOrder(totalAmount)}>Payment</button>
                     <h3>Total:
-                        {Math.fround(totalAmount).toFixed(2)}
+                        {TotalAmount}
                     </h3>
                 </div>
             </>

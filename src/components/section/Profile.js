@@ -1,47 +1,87 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../css/Profile.css'
+import {useAuth} from "../AuthContext";
+import {useHistory} from "react-router-dom";
+import {useProducts} from "../Context";
+import {db, fireStorage} from '../../firebase'
 
-class Profile extends Component {
-    render() {
-        return (
-            <div className="main-inf">
-                <div className="inf">
-                    <h1>My profile</h1>
-                    <br>
-                    </br>
-                    <div className="label-1">
-                        <label className='label-1-text'>Email:</label> <a>Test</a> <br></br>
-                        <label className='label-1-text'>Password:</label>  <a>Te**</a> <br></br>
-                        <label className='label-1-text'>First name:</label> <a>Test</a><br></br>
-                        <label className='label-1-text'>Last name:</label> <a>Test-1</a><br></br>
-                        <label className='label-1-text'>Phone number:</label>  <a>+372 test</a><br></br>
-                    </div>
-                    <button className="log-button">Change password</button><button className="login-button">Change information</button>
-                    <br>
-                    </br>
-                    <hr>
-                    </hr>
-                    <h1>My orders</h1>
-                    <p>3 последние заказа</p>
-                    <button className="login-button">More details</button>
-                    <hr>
-                    </hr>
-                    <h1><strong><p>Expenses: -40.99$</p></strong></h1>
-                </div>
-                <div className="main-prof">
-                    <img src="https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1531451526/180712-Weill--The-Creator-of-Pepe-hero_uionjj" width="450" height="400"></img>
-                    <br>
-                    </br>
-                    <div className="prof-button">
-                        <button className="login-button">Add picture</button>
-                        <h2>Balance</h2>
-                        <h2>0.00$</h2>
-                        <button className="login-button">Logout</button>
-                    </div>
+export default function Profile() {
+    const {currentUser, logout} = useAuth();
+    const {getUserData, userData, userTotalAmount} = useProducts()
+    const [image, setImage] = useState("");
+
+    let history = useHistory();
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
+    async function Logout(){
+        try {
+            await logout()
+            history.push("/")
+        }
+        catch (error){
+            alert(error)
+        }
+    }
+
+    function onSaveImage(){
+        if (image){
+            const uploadTask = fireStorage.ref(`usersPhotos/${image.name}`).put(image)
+            uploadTask.on(
+                "state_changed",
+                snapshot => {},
+                error => {
+                    console.log(error)
+                },
+                () => {
+                    fireStorage.ref("usersPhotos").child(image.name).getDownloadURL().then(url => {
+                        db.collection("users").doc(currentUser.uid).update({
+                            userPhoto: url
+                        })
+                    })
+                }
+            )
+        }
+        else {
+            alert("Choose the picture!")
+        }
+
+    }
+
+
+    function toOrders(){
+        history.push("/order");
+    }
+    return (
+        <div className="container">
+            <div className="main-prof">
+                <img src={currentUser ? userData.userPhoto: ""}></img>
+                <div className="prof-button">
+                    <input type="file" id="UserImage" hidden accept="image/*" onChange={(e) => {setImage(e.target.files[0])}}/>
+                    <label htmlFor="UserImage" id="add-image">Add picture</label>
+                    <h2>Spending</h2>
+                    <h2>{userTotalAmount}$</h2>
+                    <button className="log-button" onClick={() => onSaveImage()}>Save Image</button>
+                    <button className="log-button" onClick={Logout}>Logout</button>
                 </div>
             </div>
-        );
-    }
+            <div className="inf">
+                <h1 className="myProfile">Profile information</h1>
+                <div className="label-1">
+                    <p className="label-1-text"><strong>Email: </strong>{currentUser ? currentUser.email : "null"}</p>
+                    <p className="label-1-text"><strong>First name: </strong>{currentUser ? userData.name: "null"}</p>
+                    <p className="label-1-text"><strong>Last name: </strong>{currentUser ? userData.secondname: "null"}</p>
+                </div>
+                <div className="my-orders">
+                    <h1>My orders</h1>
+                    <p>Latest orders</p>
+                    <button className="log-button" onClick={toOrders}>My Orders</button>
+                </div>
+
+            </div>
+        </div>
+    );
 }
 
-export default Profile;
