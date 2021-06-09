@@ -75,7 +75,7 @@ export default function Details(props) {
                             <p>{item.content}</p>
                             <button className="cart" onClick={currentUser ? ()=> addToCart(product[0]): PushMain}>Add to Cart</button>
                             <div className="flex">
-                                <strong>{rating}</strong>
+                                <strong>{Math.floor(rating)}</strong>
                                 {[1, 2, 3, 4, 5].map((index, key) => {
                                     return(
                                         <RatingIcon
