@@ -30,7 +30,7 @@ export default function ShoppingCart() {
                         <div className="box">
                             <div className="row">
                                 <h2>{item.title}</h2>
-                                <span>${Math.fround(item.price * item.quantity).toFixed(2)}</span>
+                                <span>{Math.fround(item.price * item.quantity).toFixed(2)}€</span>
                             </div>
                             <p>{item.description}</p>
                             <p>{item.content}</p>
@@ -49,7 +49,7 @@ export default function ShoppingCart() {
                 <div className="total">
                     <button onClick={() => confirmOrder(totalAmount)}>Payment</button>
                     <h3>Total:
-                        {TotalAmount}
+                        {TotalAmount} €
                     </h3>
                 </div>
             </>

@@ -38,7 +38,7 @@ export default function Products() {
                                 <h3>
                                     <Link to={`/product/${product.id}`}>{product.title}</Link>
                                 </h3>
-                                <span>${product.price}</span>
+                                <span>{product.price} €</span>
                                 <p>{product.description}</p>
                             </div>
                             <button onClick={currentUser ? ()=> addToCart(product): PushMain}>Add to cart</button>

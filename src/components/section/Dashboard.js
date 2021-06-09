@@ -56,7 +56,7 @@ export default function Dashboard () {
                         <div key={idx} className="mainImages">
                             <img src={images.image} alt=""/>
                             <strong>{images.title}</strong>
-                            <p>${images.price}</p>
+                            <p>{images.price} €</p>
                         </div>
                     ))}
                 </ItemsCarousel>
