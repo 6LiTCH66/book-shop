@@ -7,13 +7,14 @@ import {db, fireStorage} from '../../firebase'
 
 export default function Profile() {
     const {currentUser, logout} = useAuth();
-    const {getUserData, userData, userTotalAmount} = useProducts()
+    const {getUserData, userData, userTotalAmount, getUserOrder} = useProducts()
     const [image, setImage] = useState("");
 
     let history = useHistory();
 
     useEffect(() => {
         getUserData()
+        getUserOrder()
     }, [])
 
     async function Logout(){
@@ -26,28 +27,23 @@ export default function Profile() {
         }
     }
 
-    function onSaveImage(){
-        if (image){
-            const uploadTask = fireStorage.ref(`usersPhotos/${image.name}`).put(image)
-            uploadTask.on(
-                "state_changed",
-                snapshot => {},
-                error => {
-                    console.log(error)
-                },
-                () => {
-                    fireStorage.ref("usersPhotos").child(image.name).getDownloadURL().then(url => {
-                        db.collection("users").doc(currentUser.uid).update({
-                            userPhoto: url
-                        })
+    if (image){
+        setImage("")
+        const uploadTask = fireStorage.ref(`usersPhotos/${image.name}`).put(image)
+        uploadTask.on(
+            "state_changed",
+            snapshot => {},
+            error => {
+                console.log(error)
+            },
+            () => {
+                fireStorage.ref("usersPhotos").child(image.name).getDownloadURL().then(url => {
+                    db.collection("users").doc(currentUser.uid).update({
+                        userPhoto: url
                     })
-                }
-            )
-        }
-        else {
-            alert("Choose the picture!")
-        }
-
+                })
+            }
+        )
     }
 
 
@@ -63,7 +59,6 @@ export default function Profile() {
                     <label htmlFor="UserImage" id="add-image">Add picture</label>
                     <h2>Spending</h2>
                     <h2>{userTotalAmount}$</h2>
-                    <button className="log-button" onClick={() => onSaveImage()}>Save Image</button>
                     <button className="log-button" onClick={Logout}>Logout</button>
                 </div>
             </div>
